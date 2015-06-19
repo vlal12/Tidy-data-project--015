@@ -1,24 +1,24 @@
 # Tidy-data-project--015
 ==================================================================
-
-The project involves writing an R script that does the foolowing things:
+As has been covered in the lectures for this course, tidy data abides by the following rules (Wickham, Hadley. "Tidy data." Under review (2014).):
+* Each variable forms a column
+* Each observation forms a row
+* Each type of observational unit forms a table
+ 
+The aim of this project is to combine the given sets of data and apply certain procedures to eventually extract a tidy data set. It involves writing an R script that does the following things:
 ==================================================================
--Merges the training and the test sets to create one data set.
--Extracts only the measurements on the mean and standard deviation for each measurement. 
--Uses descriptive activity names to name the activities in the data set
--Appropriately labels the data set with descriptive variable names. 
--From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+* Merges the training and the test sets to create one data set.
+* Extracts only the measurements on the mean and standard deviation for each measurement. 
+* Uses descriptive activity names to name the activities in the data set
+* Appropriately labels the data set with descriptive variable names. 
+* From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
 From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files.
 
 ======================================
-
-- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-- Triaxial Angular velocity from the gyroscope. 
-- A 561-feature vector with time and frequency domain variables. 
-- Its activity label. 
-- An identifier of the subject who carried out the experiment.
+Here is a link for the script: 
+The script reads the all the required files (in .txt format) using read.table() and stores in a
 
 The github repository includes the following files:
 =========================================
