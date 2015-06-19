@@ -1,11 +1,13 @@
 # Tidy-data-project--015
 ==================================================================
-As has been covered in the lectures for this course, tidy data abides by the following rules (Wickham, Hadley. "Tidy data." Under review (2014).):
+The aim of this project is to create a tidy data set from the data provided for the project, named as the UCI HAR Dataset. This data contains 3-axial linear acceleration and 3-axial angular velocity measurements from the accelerometer and gyroscope respectively for 30 subjects and 6 activities per subject. The provided data is not exactly raw; it has been pre-processed to remove noise. The actual data is contained in two folders, one for the training and one for the test measurements respectively.
+In this project, we are required to combine the given sets of data and apply certain procedures to eventually extract a tidy data set. As has been covered in the lectures for this course, in tidy data (Wickham, Hadley. "Tidy data." Under review (2014).):
 * Each variable forms a column
 * Each observation forms a row
 * Each type of observational unit forms a table
  
-The aim of this project is to combine the given sets of data and apply certain procedures to eventually extract a tidy data set. It involves writing an R script that does the following things:
+Extracting tidy data
+ It involves writing an R script that does the following things:
 ==================================================================
 * Merges the training and the test sets to create one data set.
 * Extracts only the measurements on the mean and standard deviation for each measurement. 
@@ -14,11 +16,19 @@ The aim of this project is to combine the given sets of data and apply certain p
 * From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
-From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files.
+From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. Thee only files considered are the subject_test and subject_train text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
+
 
 ======================================
 Here is a link for the script: 
-The script reads the all the required files (in .txt format) using read.table() and stores in a
+Tidy-data-project--015/run_analysis.R
+
+The script flows in the following manner:
+
+* The script reads all the required files (in .txt format) using read.table() and stores them in individual data frames. This step is carried out for the X, Y and subject files in both test and train folders. 
+* Using cbind(), the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x)
+* Using rbind(), the test and train data frames are joined together
+* 
 
 The github repository includes the following files:
 =========================================
