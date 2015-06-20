@@ -26,8 +26,11 @@ Tidy-data-project--015/run_analysis.R
 The script flows in the following manner:
 
 * The script reads all the required files (in .txt format) using read.table() and stores them in individual data frames. This step is carried out for the X, Y and subject files in both test and train folders. 
-* Using cbind(), the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x)
-* Using rbind(), the test and train data frames are joined together
+* Using cbind(), the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x). Y here contains the activity numbers.
+* Using rbind(), the test and train data frames are joined together to make a "total" data frame.
+* The feature.txt file is read in with read.table() to extract the mean and standard deviation variables to be put in the tidy data set. A function is created which for this purpose that employs a built-in grep() function. We require only the mean and std dev variables that correspond to the triaxial measurements, and not variables like meanFreq. The grep() function does exactly that, in matching the pattern and selecting all the relevant variables. All these variables are finally arranged in order using the arrange() function and put in a data frame named features_subset.
+* When the "total" data set was created by appending the subject and activity columns to the actual data, the columns names in the "total" data frame became redundant, with the first three columns named as V1. So the dataframe here is again broken in two: subset1 (subject and activity columns) and subset2 ( values for measurement variables), and functions carried out separately on both.
+* An "extract_features()" function is written that extracts the variable names from the subset2 corresponding to the feature names in the features_subset.
 * 
 
 The github repository includes the following files:
