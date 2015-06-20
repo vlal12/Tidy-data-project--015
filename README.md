@@ -34,7 +34,8 @@ The script works in the following manner:
 * The activity numbers in subset1 are replaced by the character names associated with the respective numbers (given in the activity labels text file) using factor().
 * The subsets (subset1 with subject and activity labels and total_subset2 with mean and standard deviation values) are joined again using cbind() to form the total_subset dataframe.
 * The total_subset data set is arranged based on subject and then the function ddply() from package plyr is used to extract the tidy data set.
-* The data set obtained from the above step contains 180 observations (6 activities for each subject, 30 subjects in total) and 66 measurements (variables). It follows the principles of tidy data as it has one observation (average value for each activity for a subject) in every row and one variable per column. For refernce, here is the head(select(tidy_data), 1:5),10):
+* The data set obtained from the above step contains 180 observations (6 activities for each subject, 30 subjects in total) and 66 measurements (variables). It follows the principles of tidy data as it has one observation (average value for each activity for a subject) in every row and one variable per column. For refernce, here is a part of the output:
+* head(select(tidy_data), 1:5),10):
    Subject           Activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
 1        1             LAYING          0.221598       -0.04051395         -0.113204
 2        1             SITING          0.261238       -0.00130829         -0.104544
