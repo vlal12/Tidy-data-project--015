@@ -6,9 +6,9 @@ In this project, we are required to combine the given sets of data and apply cer
 * Each observation forms a row
 * Each type of observational unit forms a table
  
-Extracting tidy data
- It involves writing an R script that does the following things:
+ Extracting tidy data
 ==================================================================
+It involves writing an R script that does the following things:
 * Merges the training and the test sets to create one data set.
 * Extracts only the measurements on the mean and standard deviation for each measurement. 
 * Uses descriptive activity names to name the activities in the data set
@@ -16,24 +16,39 @@ Extracting tidy data
 * From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
-From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. Thee only files considered are the subject_test and subject_train text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
+From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. The only files considered are the subject_test and subject_train text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
 
 
 ======================================
 Here is a link for the script: 
 Tidy-data-project--015/run_analysis.R
 
-The script flows in the following manner:
+The script works in the following manner:
 
 * The script reads all the required files (in .txt format) using read.table() and stores them in individual data frames. This step is carried out for the X, Y and subject files in both test and train folders. 
 * Using cbind(), the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x). Y here contains the activity numbers.
 * Using rbind(), the test and train data frames are joined together to make a "total" data frame.
-* The feature.txt file is read in with read.table() to extract the mean and standard deviation variables to be put in the tidy data set. A function is created which for this purpose that employs a built-in grep() function. We require only the mean and std dev variables that correspond to the triaxial measurements, and not variables like meanFreq. The grep() function does exactly that, in matching the pattern and selecting all the relevant variables. All these variables are finally arranged in order using the arrange() function and put in a data frame named features_subset.
-* When the "total" data set was created by appending the subject and activity columns to the actual data, the columns names in the "total" data frame became redundant, with the first three columns named as V1. So the dataframe here is again broken in two: subset1 (subject and activity columns) and subset2 ( values for measurement variables), and functions carried out separately on both.
-* An "extract_features()" function is written that extracts the variable names from the subset2 corresponding to the feature names in the features_subset.
-* 
+* The feature.txt file is read in with read.table() to extract the mean and standard deviation variables to be put in the tidy data set. A function is created for this purpose that employs a built-in grep() function. We require only the mean and std dev variables that correspond to the triaxial measurements, and not variables like meanFreq. The grep() function does exactly that, in matching the pattern and selecting all the relevant variables. All these variables are finally arranged in order using the arrange() function and put in a data frame named features_subset.
+* When the "total" data set was created (step 3) by appending the subject and activity columns to the actual data, the columns names in the "total" data frame became redundant, with the first three columns named as V1. So the "total" dataframe here is again broken in two: subset1 (subject and activity columns) and subset2 ( values for measurement variables), and functions carried out separately on both.
+* An "extract_features()" function is written that extracts the variable names from the subset2 corresponding to the feature names in the features_subset. The data frame formed using this function is named total_subset2, that contains the measurement values for all mean and standard deviation variables.
+* The activity numbers in subset1 are replaced by the character names associated with the respective numbers (given in the activity labels text file) using factor().
+* The subsets (subset1 with subject and activity labels and total_subset2 with mean and standard deviation values) are joined again using cbind() to form the total_subset dataframe.
+* The total_subset data set is arranged based on subject and then the function ddply() from package plyr is used to extract the tidy data set.
+* The data set obtained from the above step contains 180 observations (6 activities for each subject, 30 subjects in total) and 66 measurements (variables). It follows the principles of tidy data as it has one observation (average value for each activity for a subject) in every row and one variable per column. For refernce, here is the head(select(tidy_data), 1:5),10):
+   Subject           Activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
+1        1             LAYING          0.221598       -0.04051395         -0.113204
+2        1             SITING          0.261238       -0.00130829         -0.104544
+3        1           STANDING          0.278918       -0.01613759         -0.110602
+4        1            WALKING          0.277331       -0.01738382         -0.111148
+5        1 WALKING_DOWNSTAIRS          0.289188       -0.00991850         -0.107566
+6        1   WALKING_UPSTAIRS          0.255462       -0.02395315         -0.097302
+7        2             LAYING          0.281373       -0.01815874         -0.107246
+8        2             SITING          0.277087       -0.01568799         -0.109218
+9        2           STANDING          0.277911       -0.01842083         -0.105909
+10       2            WALKING          0.276427       -0.01859492         -0.105500
 
-The github repository includes the following files:
+
+The github repository created for this project contains the following files:
 =========================================
 
 - 'README.md'
@@ -42,31 +57,3 @@ The github repository includes the following files:
 
 - 'Codebook.md': List and details of all variables.
 
-
-
-The following files are available for the train and test data. Their descriptions are equivalent. 
-
-- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-
-- 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis. 
-
-- 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
-
-- 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
-
-Notes: 
-======
-- Features are normalized and bounded within [-1,1].
-- Each feature vector is a row on the text file.
-
-For more information about this dataset contact: activityrecognition@smartlab.ws
-
-License:
-========
-Use of this dataset in publications must be acknowledged by referencing the following publication [1] 
-
-[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
-
-This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
-
-Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
