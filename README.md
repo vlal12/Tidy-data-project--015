@@ -16,24 +16,26 @@ It involves writing an R script that does the following things:
 * From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
-From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. The only files considered are the subject_test and subject_train text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
+From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. The only files considered are the __subject_test__ and __subject_train__ text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
 
 
 ======================================
 Here is a link for the script: 
-Tidy-data-project--015/run_analysis.R
+<pre>
+https://github.com/vlal12/Tidy-data-project--015/blob/master/run_analysis.R
+</pre>
 
 The script works in the following manner:
 
 * The script reads all the required files (in .txt format) using read.table() and stores them in individual data frames. This step is carried out for the X, Y and subject files in both test and train folders. 
-* Using cbind(), the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x). Y here contains the activity numbers.
-* Using rbind(), the test and train data frames are joined together to make a "total" data frame.
-* The feature.txt file is read in with read.table() to extract the mean and standard deviation variables to be put in the tidy data set. A function is created for this purpose that employs a built-in grep() function. We require only the mean and std dev variables that correspond to the triaxial measurements, and not variables like meanFreq. The grep() function does exactly that, in matching the pattern and selecting all the relevant variables. All these variables are finally arranged in order using the arrange() function and put in a data frame named features_subset.
-* When the "total" data set was created (step 3) by appending the subject and activity columns to the actual data, the columns names in the "total" data frame became redundant, with the first three columns named as V1. So the "total" dataframe here is again broken in two: subset1 (subject and activity columns) and subset2 ( values for measurement variables), and functions carried out separately on both.
-* An "extract_features()" function is written that extracts the variable names from the subset2 corresponding to the feature names in the features_subset. The data frame formed using this function is named total_subset2, that contains the measurement values for all mean and standard deviation variables.
-* The activity numbers in subset1 are replaced by the character names associated with the respective numbers (given in the activity labels text file) using factor().
-* The subsets (subset1 with subject and activity labels and total_subset2 with mean and standard deviation values) are joined again using cbind() to form the total_subset dataframe.
-* The total_subset data set is arranged based on subject and then the function ddply() from package plyr is used to extract the tidy data set.
+* Using <code>cbind()</code>, the data frames created in step 1 are combined to produce total_test and total_train data frames. The files are combined in the order (subject, y, x). Y here contains the activity numbers.
+* Using <code>rbind()</code>, the test and train data frames are joined together to make a "total" data frame.
+* The <pre>feature.txt</pre> file is read in with read.table() to extract the mean and standard deviation variables to be put in the tidy data set. A function is created for this purpose that employs a built-in <code>grep()</code> function. We require only the mean and std dev variables that correspond to the triaxial measurements, and not variables like meanFreq. The grep() function does exactly that, in matching the pattern and selecting all the relevant variables. All these variables are finally arranged in order using the <code>arrange()</code> function and put in a data frame named features_subset.
+* When the __"total"__ data set was created (step 3) by appending the subject and activity columns to the actual data, the columns names in the "total" data frame became redundant, with the first three columns named as V1. So the "total" dataframe here is again broken in two: subset1 (subject and activity columns) and subset2 ( values for measurement variables), and functions carried out separately on both.
+* An <code>extract_features()</code> function is written that extracts the variable names from the __subset2__ corresponding to the feature names in the __features_subset__. The data frame formed using this function is named __total_subset2__, that contains the measurement values for all mean and standard deviation variables.
+* The activity numbers in subset1 are replaced by the character names associated with the respective numbers (given in the activity labels text file) using <coode>factor()</code>.
+* The subsets (__subset1__ with subject and activity labels and __total_subset2__ with mean and standard deviation values) are joined again using <code>cbind()</code> to form the __total_subset__ dataframe.
+* The __total_subset__ data set is arranged based on subject and then the function <code>ddply()</code> from package <code>plyr</code> is used to extract the __tidy_data__ set.
 * The data set obtained from the above step contains 180 observations (6 activities for each subject, 30 subjects in total) and 66 measurements (variables). It follows the principles of tidy data as it has one observation (average value for each activity for a subject) in every row and one variable per column. For refernce, here is a part of the output:
 <code>
 head(select(tidy_data), 1:5),10)
