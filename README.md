@@ -37,18 +37,19 @@ The script works in the following manner:
 * The data set obtained from the above step contains 180 observations (6 activities for each subject, 30 subjects in total) and 66 measurements (variables). It follows the principles of tidy data as it has one observation (average value for each activity for a subject) in every row and one variable per column. For refernce, here is a part of the output:
 
 * head(select(tidy_data), 1:5),10):
-   Subject           Activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
 <pre>
-1        1             LAYING          0.221598       -0.04051395         -0.113204
-2        1             SITING          0.261238       -0.00130829         -0.104544
-3        1           STANDING          0.278918       -0.01613759         -0.110602
-4        1            WALKING          0.277331       -0.01738382         -0.111148
-5        1 WALKING_DOWNSTAIRS          0.289188       -0.00991850         -0.107566
-6        1   WALKING_UPSTAIRS          0.255462       -0.02395315         -0.097302
-7        2             LAYING          0.281373       -0.01815874         -0.107246
-8        2             SITING          0.277087       -0.01568799         -0.109218
-9        2           STANDING          0.277911       -0.01842083         -0.105909
-10       2            WALKING          0.276427       -0.01859492         -0.105500
+Subject Activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
+
+1             LAYING          0.221598       -0.04051395         -0.113204
+1             SITING          0.261238       -0.00130829         -0.104544
+1           STANDING          0.278918       -0.01613759         -0.110602
+1            WALKING          0.277331       -0.01738382         -0.111148
+1 WALKING_DOWNSTAIRS          0.289188       -0.00991850         -0.107566
+1   WALKING_UPSTAIRS          0.255462       -0.02395315         -0.097302
+2             LAYING          0.281373       -0.01815874         -0.107246
+2             SITING          0.277087       -0.01568799         -0.109218
+2           STANDING          0.277911       -0.01842083         -0.105909
+2            WALKING          0.276427       -0.01859492         -0.105500
 </pre>
 
 The github repository created for this project contains the following files:
