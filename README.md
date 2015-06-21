@@ -39,7 +39,6 @@ The script works in the following manner:
 * head(select(tidy_data), 1:5),10):
 <pre>
 Subject Activity tBodyAcc-mean()-X tBodyAcc-mean()-Y tBodyAcc-mean()-Z
-
 1             LAYING          0.221598       -0.04051395         -0.113204
 1             SITING          0.261238       -0.00130829         -0.104544
 1           STANDING          0.278918       -0.01613759         -0.110602
