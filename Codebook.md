@@ -6,7 +6,7 @@ To create a tidy data set out of a given dataset after manipulating and cleaning
 The data contains triaxial measurements from accelerometers and gyroscope for training and test, measured for 30 subjects and 6 activities.
  
 ##Creating the tidy datafile
-run_analysis.R script contains all steps that were involved in creating the tidy data set. That involves, downloading and reading the files, filtering the data based on certain variables, and then carrying out steps for properly labelling the data and extracting out a tidy data set.
+<code>run_analysis.R</code> script contains all steps that were involved in creating the tidy data set. That involves, downloading and reading the files, filtering the data based on certain variables, and then carrying out steps for properly labelling the data and extracting out a tidy data set.
 
 ###Guide to create the tidy data file
 1. The text files are read through read.table()
@@ -16,7 +16,7 @@ run_analysis.R script contains all steps that were involved in creating the tidy
 5. ddply() is usd to extract the tidy data set with average values for each measurement, each activity and each subject.
 
 ##Description of the tidy_data.txt file
-Tidy data : data frame with 180 obs(rows) and 68 variables(columns)
+<code>Tidy_data</code> : data frame with 180 obs(rows) and 68 variables(columns)
 For every subject, contains mean and standard deviation values for each of the 6 activities and each of the 66 variables.
 
 __Variables__
