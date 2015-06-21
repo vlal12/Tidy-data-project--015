@@ -48,10 +48,10 @@ The script works in the following manner:
 9        2           STANDING          0.277911       -0.01842083         -0.105909
 10       2            WALKING          0.276427       -0.01859492         -0.105500
 
-
+<pre>
 1      10      12
 23     20      24
-
+</pre>
 
 The github repository created for this project contains the following files:
 =========================================
