@@ -89,4 +89,5 @@ __Variables__
 67. fBodyBodyGyroJerkMag-mean()
 68. fBodyBodyGyroJerkMag-std()
 
- 
+__Functions in the code__
+
