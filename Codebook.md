@@ -20,6 +20,7 @@ Tidy data : data frame with 180 obs(rows) and 68 variables(columns)
 For every subject, contains mean and standard deviation values for each of the 6 activities and each of the 66 variables.
 
 __Variables__
+<pre>
 1. Subject: 1-30, numeric values 
 2. Activity: 1-6. numeric values provided in the original data set  and their corresponding activity labels in "Activity.txt" file. Numeric values replaced by to their character values in tidy data.
 3. tBodyAcc-mean()-X
@@ -88,6 +89,15 @@ __Variables__
 66. fBodyBodyGyroMag-std()
 67. fBodyBodyGyroJerkMag-mean()
 68. fBodyBodyGyroJerkMag-std()
-
+</pre>
 __Functions in the code__
-
+<pre>
+1. library() : to load packages plyr and dplyr
+2. read. table() : to read in .txt files
+3. cbind(), rbind(): to join the data frames created from read. table()
+4. extract_features(): function written to extract the row numbers for the mean and standard deviation variables for consideration. __features. txt__ file is the input in this function
+5. extract(): function written to extract the columns corresponding to the variables obtained from features file using __extract_features()__
+6. as.character() : to change the numeric to character for activity variable
+7. colnames(): to label the data set
+8. arrange(): to order the data set based on subject
+9. ddply(): to create the tidy data by calculating column wise average for all measurement variables, and putting the values for each subject and each activity.
