@@ -1,31 +1,20 @@
 ---
 title: UCI HAR Tidy data Codebook
-author: "Your name here"
-date: "The date here"
-output:
-  html_document:
-    keep_md: yes
----
  
 ## Project Description
-Short description of the project
- 
-##Study design and data processing
- 
-###Collection of the raw data
-Description of how the data was collected.
- 
-###Notes on the original (raw) data 
-Some additional notes (if avaialble, otherwise you can leave this section out).
+To create a tidy data set out of a given dataset after manipulating and cleaning up the data.
+The data contains triaxial measurements from accelerometers and gyroscope for training and test, measured for 30 subjects and 6 activities.
  
 ##Creating the tidy datafile
- 
+run_analysis.R script contains all steps that were involved in creating the tidy data set. That involves, downloading and reading the files, filtering the data based on certain variables, and then carrying out steps for properly labelling the data and extracting out a tidy data set.
+
 ###Guide to create the tidy data file
-Description on how to create the tidy data file (1. download the data, ...)/
- 
-###Cleaning of the data
-Short, high-level description of what the cleaning script does. [link to the readme document that describes the code in greater detail]()
- 
+1. The text files are read through read.table()
+2. cbind() and rbind() are used to create a data frame that contains both test and training data
+3. Based on the features variables, the coulmn number corresponding to the features is exteacted from the total data set
+4. The variables are labelled and the activities are labelled
+5. ddply() is usd to extract the tidy data set with average values for each measurement, each activity and each subject.
+
 ##Description of the variables in the tiny_data.txt file
 Tidy data : 180 obs and 68 variables
 For every subject, contains mean and standard deviation values for each of the 6 activities and each of the 66 variables.
