@@ -1,5 +1,5 @@
 
-__UCI HAR Tidy data Codebook__
+##UCI HAR Tidy data Codebook
  
 ## Project Description
 To create a tidy data set out of a given dataset after manipulating and cleaning up the data.
