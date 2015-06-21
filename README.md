@@ -49,6 +49,10 @@ The script works in the following manner:
 10       2            WALKING          0.276427       -0.01859492         -0.105500
 
 
+1      10      12
+23     20      24
+
+
 The github repository created for this project contains the following files:
 =========================================
 
