@@ -1,65 +1,45 @@
 library(plyr)
 library(dplyr)
 
-# loading test data
-test_sub<-read.table("test/subject_test.txt")
-test_ylab<-read.table("test/y_test.txt")
-test_x<-read.table("test/X_test.txt")
 
-# loading train data
-train_sub<-read.table("train/subject_train.txt")
-train_ylab<-read.table("train/y_train.txt")
-train_x<-read.table("train/X_train.txt")
+#downloaded the file from the site
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile = "./week4/smartphonedata.zip")
 
-#Merging test data
-total_test<-cbind(test_sub, test_ylab, test_x)
+#unzipped the file in a local folder
+unzip(zipfile="./week4/smartphonedata.zip", exdir = "./week4")
 
-#Merging train data
-total_train<-cbind(train_sub, train_ylab, train_x)
+#reading files
+names <- read.table("./week4/UCI HAR Dataset/features.txt")
+activity<-read.table("./week4/UCI HAR Dataset/activity_labels.txt")
+train_x<-read.table("./week4/UCI HAR Dataset/train/X_train.txt")
+train_y<-read.table("./week4/UCI HAR Dataset/train/y_train.txt")
+train_subject<-read.table("./week4/UCI HAR Dataset/train/subject_train.txt")
+test_x<-read.table("./week4/UCI HAR Dataset/test/X_test.txt")
+test_y<-read.table("./week4/UCI HAR Dataset/test/y_test.txt")
+test_subject<-read.table("./week4/UCI HAR Dataset/test/subject_test.txt")
 
-#Merging test and train data
-total<-rbind(total_test, total_train)
+#combine the x data files for training and test
+total_xdata<-rbind(train_x, test_x)
 
-#function for extracting mean and standard deviation row numbers from features file
-features<-read.table("features.txt")
-extract_features<-function(features){
-  features_submean<-features[grep("mean()", features$V2, fixed=TRUE), ]
-  features_substd<-features[grep("std()", features$V2, fixed=TRUE), ]
-  features_subset<-arrange(rbind(features_submean, features_substd), V1)
-  
-  #features_subset contains the column numbers that need to be extracted from the merged data set total
-  features_subset
-}
+#change variable names to descriptive
+colnames(total_xdata)<-names[,2]
 
-#subsetting total dataset to allow working with duplicate column names (V1) entered by default
-subset1<-total[,1:2]#gives the subject and activity numbers
-subset2<-total[,3:563]#gives the values measured during activities(mean, std, etc...)
+#merging the activity and subject data sets
+train_activitysubject<-cbind(train_y, train_subject)
+test_activitysubject<-cbind(test_y, test_subject)
+total_activitysubject<-rbind(train_activitysubject, test_activitysubject)
 
-#extracting mean and standard deviation from the total
-extract <- extract_features(features)
-  for(i in 1:nrow(extract)){
-      col<-extract[i,1]
-      if (i==1){
-        total_subset2<-cbind(subset2[col])
-      }
-      else{
-        total_subset2<-cbind(total_subset2,subset2[col])#total_subset2 gives all the mean and std values
-      }
-      
-  }
+#using grep to exrtact only the columns wiht variables mean or std
+subset_totalx<-total_xdata[,grep("mean|std", colnames(total_xdata), value=TRUE)]
 
+#replace activity numbers with labels
+labels<-activity[,2]
+total_activitysubject[,1]<-factor(total_activitysubject[,1], labels=labels)
+colnames(total_activitysubject)<-c("Activity", "Subject")
 
-#Replacing activity numbers with names (col 2 of total_subset)
-subset1[,2]<-as.character(factor(subset1[,2], labels=c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITING", "STANDING", "LAYING")))
+#creating total data set
+total_data<-cbind(total_activitysubject, subset_totalx)
 
-#labelling the data set
-colnames(total_subset2)<-extract[,2]
-colnames(subset1)<-c("Subject", "Activity")
-total_subset<-cbind(subset1, total_subset2)
+tidy_data<-ddply(total_data, c("Subject", "Activity"), colwise(mean))
 
-#arranging data by subject
-total_subset<-arrange(total_subset, Subject)
-
-#creating tidy data set
-tidy_data<-ddply(total_subset, c("Subject", "Activity"), colwise(mean))
 
