@@ -16,7 +16,7 @@ It involves writing an R script that does the following things:
 * From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
-From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. This folder is made the current working directory for simplified access to all files. The only files considered are the __subject_test__ and __subject_train__ text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
+From the data link provided for the project, the data is downloaded and unzipped in the same folder containing the R script. The only files considered are the __subject_test__ and __subject_train__ text files in their respective test and train folders. The inertial signal data are not considered here (reasons mentioned in the forum).
 
 
 ======================================
