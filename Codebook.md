@@ -90,6 +90,7 @@ __Variables__
 67. fBodyBodyGyroJerkMag-mean()
 68. fBodyBodyGyroJerkMag-std()
 </pre>
+
 __Functions in the code__
 <pre>
 1. library() : to load packages plyr and dplyr
